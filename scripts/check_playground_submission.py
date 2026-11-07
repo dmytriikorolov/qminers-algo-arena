@@ -6,6 +6,7 @@ from pathlib import Path
 
 
 ALLOWED_IMPORTS = {
+    'collections': {'deque'},
     'math': {'ceil', 'exp', 'floor', 'sqrt'},
     'simulator.models': {
         'OrderBookSnapshot', 'OrderRequest', 'OrderStatus', 'OrderType',

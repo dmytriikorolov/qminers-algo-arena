@@ -2,6 +2,13 @@
 
 ## Latest dataset: sample_v2.csv
 
+Follow-up rolling-window research: a reconstructed100-event strategy earns322;
+time-thinned sampling plus returning to flat first earns1815. However, the
+established maker with cap1 earns1938 with lower sampled drawdown at the same
+maximum inventory1. The new `strategies/window_maker.py` is research, not a
+replacement recommendation. The friend's actual code/22k score remains
+unverified. See [`research/window/RESULTS.md`](research/window/RESULTS.md).
+
 Current reviewed V2 candidate: **`strategies/v2_inventory_maker.py`**, official
 full replay **+1,992 PnL**, maximum absolute inventory2, zero penalty, sampled
 drawdown2. Defensive flow reproduces-30; flow LOT2/cap2 loses28,273; no-op0.

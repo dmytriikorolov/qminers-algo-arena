@@ -1,0 +1,48 @@
+{
+  "strategy": "strategies/v2_inventory_maker.py",
+  "strategy_sha256": "eebdaacf6bc4942a9811cc10761fb98fd61cbac853cb981e119aae31772c6ae1",
+  "data": "data/sample_v2.csv",
+  "data_sha256": "dd4e00e281abe50c9a19e16c147ccbc0b5b69835fee567f00136402ef1e01d08",
+  "parameters": {
+    "LIMIT": 1
+  },
+  "result": {
+    "fills": 2477,
+    "traded_volume": 2477,
+    "inventory": -1,
+    "cash": 11942.0,
+    "mark_price": 10004.0,
+    "breach_penalty": 0.0,
+    "pnl": 1938.0,
+    "pnl_se": 50.60772287383221,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 1,
+    "abs_inventory_q95": 1,
+    "abs_inventory_q997": 1
+  },
+  "max_abs_inventory": 1,
+  "max_abs_reserved_position_at_submit": 1,
+  "sampled_max_drawdown": 2.0,
+  "statuses": {
+    "accepted": 14498,
+    "canceled": 12020,
+    "filled": 2477,
+    "rejected": 35
+  },
+  "match_count": 2477,
+  "minimum_send_to_fill_us": 5189,
+  "submitted": 14498,
+  "seconds": 25.75704808300361,
+  "risk_state": {
+    "halted_at_end": false,
+    "first_halt_us": null
+  },
+  "elapsed_split_s": 3800,
+  "pnl_at_elapsed_split": 1273.0,
+  "pnl_after_elapsed_split": 665.0,
+  "first_three_20m_pnl": [
+    405.0,
+    406.0,
+    394.0
+  ]
+}
