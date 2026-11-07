@@ -10,3 +10,7 @@ data/*
 # Simulator output
 logs/*
 !logs/.gitkeep
+
+.agents/
+.codex/
+.idea/
