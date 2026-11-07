@@ -1,0 +1,44 @@
+{
+  "strategy": "strategies/defensive_flow.py",
+  "strategy_sha256": "9a0699449d03c6c7223c75d918decb0b065c160e135bde4eed565dfe84c66a00",
+  "data": "logs/v2/validation.csv",
+  "data_sha256": "cf550f213f9b44b513ff59c320bd3c7fcb81d17a834391ec91dfb13f408e0e93",
+  "parameters": {},
+  "result": {
+    "fills": 18,
+    "traded_volume": 36,
+    "inventory": 0,
+    "cash": -30.0,
+    "mark_price": 9982.0,
+    "breach_penalty": 0.0,
+    "pnl": -30.0,
+    "pnl_se": 12.48215155431789,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 0,
+    "abs_inventory_q95": 0,
+    "abs_inventory_q997": 2
+  },
+  "max_abs_inventory": 2,
+  "max_abs_reserved_position_at_submit": 2,
+  "sampled_max_drawdown": 30.0,
+  "statuses": {
+    "accepted": 18,
+    "filled": 18
+  },
+  "match_count": 18,
+  "minimum_send_to_fill_us": 5000,
+  "submitted": 18,
+  "seconds": 9.232767709007021,
+  "risk_state": {
+    "halted_at_end": true,
+    "first_halt_us": 173387931
+  },
+  "split_elapsed_s": 1800,
+  "pnl_at_split": -30.0,
+  "pnl_after_split": 0.0,
+  "first_three_20m_pnl": [
+    -30.0,
+    0.0,
+    0.0
+  ]
+}

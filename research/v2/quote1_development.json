@@ -1,0 +1,46 @@
+{
+  "strategy": "strategies/playground_quotes.py",
+  "strategy_sha256": "1de59224d9567fbf01e9102d61de91c36a985cc4ebcc718b42a0360efa2e308d",
+  "data": "logs/v2/development.csv",
+  "data_sha256": "ff5ea3d1a65d8610441edb6846eaf4ee5088dda396d6c4b59fe6d71842627c9a",
+  "parameters": {
+    "LOT": 1,
+    "LIMIT": 2,
+    "SIGNAL_WEIGHT": 0,
+    "SKEW": 0.5
+  },
+  "result": {
+    "fills": 770,
+    "traded_volume": 770,
+    "inventory": 0,
+    "cash": 620.0,
+    "mark_price": 10001.0,
+    "breach_penalty": 0.0,
+    "pnl": 620.0,
+    "pnl_se": 29.36824615279592,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 1,
+    "abs_inventory_q95": 1,
+    "abs_inventory_q997": 2
+  },
+  "development_pnl": 417.0,
+  "final_20m_pnl": 203.0,
+  "chronological_20m_pnl": [
+    417.0,
+    203.0,
+    0.0
+  ],
+  "max_abs_inventory": 2,
+  "max_abs_reserved_position_at_submit": 2,
+  "sampled_max_drawdown": 2.0,
+  "statuses": {
+    "accepted": 5623,
+    "canceled": 4851,
+    "filled": 770,
+    "rejected": 13
+  },
+  "match_count": 770,
+  "minimum_send_to_fill_us": 6002,
+  "submitted": 5623,
+  "seconds": 7.555503541982034
+}

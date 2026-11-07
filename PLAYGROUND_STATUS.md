@@ -1,5 +1,35 @@
 # Playground status — 7 November 2026
 
+## Latest dataset: sample_v2.csv
+
+Current reviewed V2 candidate: **`strategies/v2_inventory_maker.py`**, official
+full replay **+1,992 PnL**, maximum absolute inventory2, zero penalty, sampled
+drawdown2. Defensive flow reproduces-30; flow LOT2/cap2 loses28,273; no-op0.
+Frozen chronological increments: **620 / 690 / 682** through1800s,1800–3800s,
+and the remaining stream. No candidate parameters changed after the first block.
+Dataset provenance beyond the supplied CSV is unknown; these are checks on one
+public tape, not proof of general profitability. The old synthetic-sample scores
+below are historical and must not be compared as if the datasets were identical.
+
+The maker quotes one lot per side, reserves pending/canceling exposure, skews
+quotes against inventory, caps position at2, and cancels/liquidates on a20-unit
+executable-equity drawdown trigger. It has no aggressive flow-following entry.
+It loses20 and halts on the old trending sample. Gaps/missing liquidity can still
+cause losses beyond the trigger; this is not a guaranteed monetary loss bound.
+
+Backtest the current V2 file:
+
+```bash
+.venv/bin/python -m simulator.main --strategy strategies/v2_inventory_maker.py --backtest data/sample_v2.csv --log-dir logs/v2/maker-check --no-logs
+```
+
+Read [`research/v2/RESULTS.md`](research/v2/RESULTS.md) for the changed dataset,
+actual exploit of defensive flow, all comparisons, reproduction and remaining
+risks; [`research/v2/REVIEW.md`](research/v2/REVIEW.md) records independent review.
+Submit only the standalone candidate if the team approves. No submission made.
+
+## Earlier sample and defensive experiments
+
 **Latest assessment after adversarial testing: no general strategy is validated.**
 The 21,434-PnL flow candidate is specific to the synthetic Playground pattern.
 Independent attack tapes reproduce inventory trapping and repeated spread losses.
