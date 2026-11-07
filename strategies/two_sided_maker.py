@@ -1,4 +1,22 @@
-"""Two-sided passive maker: rests a bid and an ask at the touch, sides gated by the mean-reversion signal."""
+"""Two-sided passive maker, full capacity: bid 100-I / ask 100+I at the market touch, mean-reversion gated.
+
+v2 (2026-11-07). v1 quoted a fixed 100 lots per side from one order slot
+and dropped any side where one fill could breach the limit, so most of the
+time it quoted one side only (+223k on round1). v2 runs on the
+`full_two_sided` engine:
+
+- size = the room left to the limit (bid LIMIT - I, ask LIMIT + I), topped
+  up with new orders as fills land, so both sides always rest at full size;
+- the touch is the best *market* price (own orders excluded); an order
+  that is no longer at its target is cancelled and re-joined;
+- the mean-reversion signal is kept: beyond DEVIATION_DEADBAND the side
+  that would chase the move (bid when the mid is rich, ask when cheap) is
+  moved GATE_OFFSET ticks deeper (None = pulled). With ADDING_ONLY that
+  applies only while the side would grow |inventory|.
+
+Penalty safety: resting + in-flight quantity per side never exceeds the room
+to the limit, and orders count until terminal (cancels can lose the race).
+"""
 
 from __future__ import annotations
 
@@ -16,157 +34,89 @@ from simulator.models import (
 from simulator.strategy import BaseStrategy
 
 WINDOW_SIZE = 100  # k: how many recent mid prices the mean is taken over
-DEVIATION_DEADBAND = 1  # t in ticks: |mid - mean| beyond this only the reversion side quotes
-SIDE_QUANTITY = 100  # lots per resting order, per side (two rest at once, so a single fill moves |I| by this)
-EXPOSURE_LIMIT = 100  # arena rule: |inventory| > 100 accrues penalty, so |I + s*q| stays <= this
-SKEW_BAND = 0  # within the deadband, a side growing |inventory| quotes only while |I| stays under this band
+DEVIATION_DEADBAND = 1  # ticks: |mid - mean| beyond this gates the move-chasing side
+LIMIT = 100  # arena rule: |inventory| > 100 accrues penalty
+GATE_OFFSET = 1  # ticks behind the touch for a gated side (None = no quote)
+ADDING_ONLY = True  # gate a side only while it would grow |inventory|
 
-_EMPTY = 0  # no order on the side
-_PLACING = 1  # order sent, waiting out the accept delay
-_RESTING = 2  # live in the book (possibly partially filled)
-_CANCELLING = 3  # cancel sent, waiting for its confirmation (a fill can still win the race)
+
+def market_best(orders: list) -> tuple[int | None, int]:
+    """Best price and total quantity there, counting market orders only."""
+    price = None
+    quantity = 0
+    for order in orders:
+        if order.owner != 'market':
+            continue
+        if price is None:
+            price = order.price
+        elif order.price != price:
+            break
+        quantity += order.quantity
+    return price, quantity
 
 
 class TwoSidedMakerStrategy(BaseStrategy):
-    """Market maker quoting both sides of the book at once.
-
-    Two independent quote slots, one per side, each with its own order
-    lifecycle; the mean-reversion signal decides which sides are wanted:
-
-    - when |mid - mean| exceeds the deadband, only the reversion side quotes
-      (mid rich: ask only; mid cheap: bid only) - the same fade as the
-      one-sided `mean_maker`, which beyond the deadband is also single-sided;
-    - within the deadband both sides quote, but a side that would grow
-      |inventory| may rest only while |inventory| stays inside the skew band
-      (SKEW_BAND); once it is left, only the inventory-reducing side keeps
-      quoting - the two-sided form of mean_maker's flat-reduction side
-      choice, with the band choosing how far from flat both sides may rest.
-
-    Each side keeps its queue priority: a resting order is replaced only when
-    its side is no longer wanted or the touch improves past its price. The
-    sides never wait on each other, so a fill on one side leaves the other
-    resting, and the per-side exposure gate (checked against the inventory at
-    placement time, with one order per side) guarantees no single fill can
-    push |inventory| into the penalty zone.
-    """
+    """Full-capacity two-sided maker with the mean-reversion gate."""
 
     def __init__(
         self,
         window_size: int = WINDOW_SIZE,
-        deviation_deadband: int = DEVIATION_DEADBAND,
-        side_quantity: int = SIDE_QUANTITY,
-        exposure_limit: int = EXPOSURE_LIMIT,
-        skew_band: int = SKEW_BAND,
+        deviation_deadband: float = DEVIATION_DEADBAND,
+        limit: int = LIMIT,
+        gate_offset: int | None = GATE_OFFSET,
+        adding_only: bool = ADDING_ONLY,
     ) -> None:
         super().__init__()
         self._window: deque[float] = deque(maxlen=window_size)
-        self._deadband: int = deviation_deadband
-        self._quantity: int = side_quantity
-        self._exposure_limit: int = exposure_limit
-        self._skew_band: int = skew_band
-        self._inventory: int = 0
-        self._order_sides: dict[str, Side] = {}
-        sides = (Side.BUY, Side.SELL)
-        self._order: dict[Side, str | None] = dict.fromkeys(sides)
-        self._price: dict[Side, int | None] = dict.fromkeys(sides)
-        self._phase: dict[Side, int] = dict.fromkeys(sides, _EMPTY)
+        self._deadband = deviation_deadband
+        self._limit = limit
+        self._offset = gate_offset
+        self._adding_only = adding_only
+        self._inventory = 0
+        # order_id -> [side, price, remaining quantity, cancel sent]
+        self._orders: dict[str, list] = {}
 
     def on_order_book_change(self, snapshot: OrderBookSnapshot, trades: list[Trade]) -> None:
-        """Update the mid-price window and keep both sides quoting at the touch."""
-        if not snapshot.bids or not snapshot.asks:
+        """Update the mean, then re-join the market touch on each side and top up free capacity."""
+        bid_px, _ = market_best(snapshot.bids)
+        ask_px, _ = market_best(snapshot.asks)
+        if bid_px is None or ask_px is None:
             return
-
-        mid = (snapshot.bids[0].price + snapshot.asks[0].price) / 2
+        mid = (bid_px + ask_px) / 2
         self._window.append(mid)
-        if len(self._window) < self._window.maxlen:
-            return
+        deviation = mid - sum(self._window) / len(self._window)
 
-        mean = sum(self._window) / len(self._window)
-        deviation = mid - mean
-        if deviation > self._deadband:
-            want: dict[Side, bool] = {Side.BUY: False, Side.SELL: True}  # mid rich: fade up
-        elif deviation < -self._deadband:
-            want = {Side.BUY: True, Side.SELL: False}  # mid cheap: fade down
-        else:
-            want = {Side.BUY: True, Side.SELL: True}
+        targets: dict[Side, int | None] = {Side.BUY: bid_px, Side.SELL: ask_px}
+        if len(self._window) == self._window.maxlen:
+            if deviation > self._deadband and not (self._adding_only and self._inventory < 0):
+                targets[Side.BUY] = None if self._offset is None else bid_px - self._offset
+            if deviation < -self._deadband and not (self._adding_only and self._inventory > 0):
+                targets[Side.SELL] = None if self._offset is None else ask_px + self._offset
+        self._quote(targets)
 
-        # A single fill must never push |inventory| into the penalty zone
-        # (the hard bound, applied to every quote); within the deadband the
-        # skew band tightens it for the side that would grow |inventory|, so
-        # only the reducing side quotes once the band is left - keeping the
-        # position small through the noise instead of feeding momentum.
-        bid_cap = min(self._exposure_limit - self._quantity, self._skew_band)
-        ask_floor = max(self._quantity - self._exposure_limit, -self._skew_band)
-        if deviation > self._deadband or deviation < -self._deadband:
-            if self._inventory + self._quantity > self._exposure_limit:
-                want[Side.BUY] = False
-            if self._inventory - self._quantity < -self._exposure_limit:
-                want[Side.SELL] = False
-        else:
-            if self._inventory > bid_cap:
-                want[Side.BUY] = False
-            if self._inventory < ask_floor:
-                want[Side.SELL] = False
-
-        touches = {Side.BUY: snapshot.bids[0].price, Side.SELL: snapshot.asks[0].price}
-        for side in (Side.BUY, Side.SELL):
-            self._manage(side, want[side], touches[side])
-
-    def _manage(self, side: Side, wanted: bool, touch: int) -> None:
-        """Reconcile one side's resting order with whether the side is wanted at `touch`."""
-        phase = self._phase[side]
-        if phase in (_PLACING, _CANCELLING):
-            return  # an action is in flight; the terminal event frees the slot
-
-        if not wanted:
-            if phase == _RESTING:
-                self.cancel_order(self._order[side])
-                self._phase[side] = _CANCELLING
-            return
-
-        if phase == _RESTING:
-            resting_price = self._price[side]
-            if resting_price == touch:
-                return  # already quoted at the touch
-            improved_past = (side == Side.BUY and touch > resting_price) or (
-                side == Side.SELL and touch < resting_price
-            )
-            if not improved_past:
-                return  # still at the touch, keep queue priority
-            self.cancel_order(self._order[side])
-            self._phase[side] = _CANCELLING
-            return  # wait for the CANCELED event, then re-quote
-
-        order_id = self.send_order(
-            OrderRequest(
-                side=side,
-                price=touch,
-                quantity=self._quantity,
-                order_type=OrderType.LIMIT,
-            )
-        )
-        self._order_sides[order_id] = side
-        self._order[side] = order_id
-        self._price[side] = touch
-        self._phase[side] = _PLACING
+    def _quote(self, targets: dict[Side, int | None]) -> None:
+        for side, target in targets.items():
+            for order_id, order in self._orders.items():
+                if order[0] == side and not order[3] and order[1] != target:
+                    self.cancel_order(order_id)
+                    order[3] = True
+            if target is None:
+                continue
+            room = self._limit - self._inventory if side == Side.BUY else self._limit + self._inventory
+            free = room - sum(order[2] for order in self._orders.values() if order[0] == side)
+            if free > 0:
+                order_id = self.send_order(
+                    OrderRequest(side=side, price=target, quantity=free, order_type=OrderType.LIMIT)
+                )
+                self._orders[order_id] = [side, target, free, False]
 
     def on_private_order_update(self, event: PrivateOrderEvent) -> None:
-        """Accumulate inventory on fills; free the side's slot once its order is terminal."""
-        side = self._order_sides.get(event.order_id)
-        if side is None:
-            return  # unknown id, e.g. a cancel that lost the race against a fill
-
-        if event.status in (OrderStatus.PARTIALLY_FILLED, OrderStatus.FILLED):
-            self._inventory += event.filled_quantity if side == Side.BUY else -event.filled_quantity
-
-        if event.status is OrderStatus.ACCEPTED:
-            if self._phase[side] == _PLACING and self._order[side] == event.order_id:
-                self._phase[side] = _RESTING
+        """Track inventory and remaining quantities; drop terminal orders."""
+        order = self._orders.get(event.order_id)
+        if order is None:
             return
-
+        if event.status in (OrderStatus.PARTIALLY_FILLED, OrderStatus.FILLED):
+            self._inventory += event.filled_quantity if order[0] == Side.BUY else -event.filled_quantity
+            order[2] = event.remaining_quantity
         if event.status in (OrderStatus.FILLED, OrderStatus.CANCELED, OrderStatus.REJECTED):
-            self._order_sides.pop(event.order_id, None)
-            if self._order[side] == event.order_id:
-                self._order[side] = None
-                self._price[side] = None
-                self._phase[side] = _EMPTY
+            del self._orders[event.order_id]
