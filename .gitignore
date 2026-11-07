@@ -14,3 +14,5 @@ logs/*
 .agents/
 .codex/
 .idea/
+# Local handoff notes for AI sessions, not part of the project
+SESSION_NOTES.md
