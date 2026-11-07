@@ -30,11 +30,11 @@ class MeanMakerStrategy(BaseStrategy):
       (above the mean quote the ask, below it the bid);
     - within the deadband, quote whichever side moves inventory toward flat,
       which also keeps the quote stable while the mid hovers around the mean;
-    - a resting order is replaced only when the desired side changes or the
-      touch improves past its price, so queue priority is kept otherwise.
+    - a resting order is replaced when its side or market touch changes;
+      unchanged quotes retain their queue priority.
 
-    Fills earn the spread instead of paying it. One order lifecycle runs at a
-    time (sends and cancels take effect 5 ms late, and a cancel can lose the
+    Quotes aim to capture the spread; latency can still cause taker fills.
+    One order lifecycle runs at a time (sends and cancels take effect 5 ms late, and a cancel can lose the
     race against a fill), and the exposure bound guarantees a single fill can
     never push |inventory| into the penalty zone.
     """
@@ -52,7 +52,8 @@ class MeanMakerStrategy(BaseStrategy):
         self._quantity: int = quote_quantity
         self._exposure_limit: int = exposure_limit
         self._inventory: int = 0
-        self._outstanding: int = 0  # orders sent but not yet terminal
+        self._submit_pending = False
+        self._cancel_pending_id: str | None = None
         self._order_sides: dict[str, Side] = {}
         self._resting_id: str | None = None
         self._resting_side: Side | None = None
@@ -60,12 +61,17 @@ class MeanMakerStrategy(BaseStrategy):
 
     def on_order_book_change(self, snapshot: OrderBookSnapshot, trades: list[Trade]) -> None:
         """Update the mid-price window and keep one passive quote at the touch."""
-        if not snapshot.bids or not snapshot.asks:
+        bid = next((order.price for order in snapshot.bids if order.owner == 'market'), None)
+        ask = next((order.price for order in snapshot.asks if order.owner == 'market'), None)
+        if bid is None or ask is None or bid >= ask:
+            if self._resting_id is not None and not self._submit_pending and self._cancel_pending_id is None:
+                self._cancel_pending_id = self._resting_id
+                self.cancel_order(self._resting_id)
             return
 
-        mid = (snapshot.bids[0].price + snapshot.asks[0].price) / 2
+        mid = (bid + ask) / 2
         self._window.append(mid)
-        if len(self._window) < self._window.maxlen or self._outstanding > 0:
+        if len(self._window) < self._window.maxlen or self._submit_pending or self._cancel_pending_id is not None:
             return
 
         mean = sum(self._window) / len(self._window)
@@ -77,26 +83,20 @@ class MeanMakerStrategy(BaseStrategy):
         else:
             side = Side.BUY if self._inventory <= 0 else Side.SELL
 
-        # A single fill must never push |inventory| into the penalty zone;
-        # stand down (keeping any existing resting order) if it could.
-        if side is not None:
-            signed = self._quantity if side == Side.BUY else -self._quantity
-            if abs(self._inventory + signed) > self._exposure_limit:
-                return
-
-        touch = snapshot.bids[0].price if side == Side.BUY else snapshot.asks[0].price
+        touch = bid if side == Side.BUY else ask
         if self._resting_id is not None:
-            if self._resting_side == side:
-                if self._resting_price == touch:
-                    return  # already quoted at the touch
-                improved_past = (side == Side.BUY and touch > self._resting_price) or (
-                    side == Side.SELL and touch < self._resting_price
-                )
-                if not improved_past:
-                    return  # still at the touch, keep queue priority
+            if self._resting_side == side and self._resting_price == touch:
+                return
+            # Manage the existing residual before checking a replacement's size.
+            self._cancel_pending_id = self._resting_id
             self.cancel_order(self._resting_id)
-            return  # wait for the CANCELED event, then re-quote
+            return
 
+        signed = self._quantity if side == Side.BUY else -self._quantity
+        if abs(self._inventory + signed) > self._exposure_limit:
+            return
+
+        self._submit_pending = True
         order_id = self.send_order(
             OrderRequest(
                 side=side,
@@ -110,13 +110,23 @@ class MeanMakerStrategy(BaseStrategy):
 
     def on_private_order_update(self, event: PrivateOrderEvent) -> None:
         """Accumulate inventory on fills; free the slot once the order is terminal."""
+        # A fill can beat a cancel. Keep the cancel pending until its own
+        # response arrives, even when the filled order has already been cleared.
+        if event.order_id == self._cancel_pending_id and event.status in (
+            OrderStatus.CANCELED, OrderStatus.REJECTED,
+        ):
+            self._cancel_pending_id = None
+        side = self._order_sides.get(event.order_id)
+        if side is None:
+            return  # Late responses for old orders cannot clear a newer order.
+        if event.status == OrderStatus.ACCEPTED:
+            self._submit_pending = False
         if event.status in (OrderStatus.PARTIALLY_FILLED, OrderStatus.FILLED):
-            side = self._order_sides.get(event.order_id)
-            if side is not None:
-                self._inventory += event.filled_quantity if side == Side.BUY else -event.filled_quantity
+            self._submit_pending = False
+            self._inventory += event.filled_quantity if side == Side.BUY else -event.filled_quantity
 
         if event.status in (OrderStatus.FILLED, OrderStatus.CANCELED, OrderStatus.REJECTED):
             self._order_sides.pop(event.order_id, None)
-            self._outstanding = max(0, self._outstanding - 1)
             if self._resting_id == event.order_id:
+                self._submit_pending = False
                 self._resting_id, self._resting_side, self._resting_price = None, None, None
