@@ -1,0 +1,44 @@
+{
+  "strategy": "strategies/defensive_flow.py",
+  "strategy_sha256": "9a0699449d03c6c7223c75d918decb0b065c160e135bde4eed565dfe84c66a00",
+  "data": "data/sample.csv",
+  "data_sha256": "33dd6764c54000244f1a2e0691e6efbac226684554843147f622e0431b35e8dc",
+  "parameters": {},
+  "result": {
+    "fills": 104,
+    "traded_volume": 208,
+    "inventory": 0,
+    "cash": 730.0,
+    "mark_price": 10051.0,
+    "breach_penalty": 0.0,
+    "pnl": 730.0,
+    "pnl_se": 100.05354875326101,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 0,
+    "abs_inventory_q95": 2,
+    "abs_inventory_q997": 2
+  },
+  "development_pnl": 730.0,
+  "final_20m_pnl": 0.0,
+  "chronological_20m_pnl": [
+    730.0,
+    0.0,
+    0.0
+  ],
+  "max_abs_inventory": 2,
+  "max_abs_reserved_position_at_submit": 2,
+  "sampled_max_drawdown": 28.0,
+  "statuses": {
+    "accepted": 116,
+    "filled": 104,
+    "canceled": 12
+  },
+  "match_count": 104,
+  "minimum_send_to_fill_us": 5000,
+  "submitted": 116,
+  "seconds": 0.2195340829784982,
+  "risk_state": {
+    "halted_at_end": true,
+    "first_halt_us": 634503702
+  }
+}

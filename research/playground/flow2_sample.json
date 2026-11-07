@@ -1,0 +1,42 @@
+{
+  "strategy": "strategies/playground_flow.py",
+  "strategy_sha256": "abe1dbecfe7436182312811ffa8a0abe16061e1bf792942a57911f9a082d7cd0",
+  "data": "data/sample.csv",
+  "data_sha256": "33dd6764c54000244f1a2e0691e6efbac226684554843147f622e0431b35e8dc",
+  "parameters": {
+    "LOT": 2,
+    "LIMIT": 2
+  },
+  "result": {
+    "fills": 305,
+    "traded_volume": 610,
+    "inventory": -2,
+    "cash": 23832.0,
+    "mark_price": 10038.0,
+    "breach_penalty": 0.0,
+    "pnl": 3756.0,
+    "pnl_se": 204.73347959083205,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 2,
+    "abs_inventory_q95": 2,
+    "abs_inventory_q997": 2
+  },
+  "development_pnl": 2518.0,
+  "final_20m_pnl": 1238.0,
+  "chronological_20m_pnl": [
+    1288.0,
+    1230.0,
+    1238.0
+  ],
+  "max_abs_inventory": 2,
+  "max_abs_reserved_position_at_submit": 2,
+  "sampled_max_drawdown": 32.0,
+  "statuses": {
+    "accepted": 305,
+    "filled": 305
+  },
+  "match_count": 305,
+  "minimum_send_to_fill_us": 5000,
+  "submitted": 305,
+  "seconds": 0.21977966697886586
+}

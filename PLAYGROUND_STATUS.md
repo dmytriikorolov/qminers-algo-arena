@@ -1,6 +1,16 @@
 # Playground status — 7 November 2026
 
-Candidate for manual Playground submission: **`strategies/playground_flow.py`**.
+**Latest assessment after adversarial testing: no general strategy is validated.**
+The 21,434-PnL flow candidate is specific to the synthetic Playground pattern.
+Independent attack tapes reproduce inventory trapping and repeated spread losses.
+A separate `strategies/defensive_flow.py` adds confirmed small entries, independent
+exits, cooldown and a drawdown halt. It reduces tested losses but still loses in
+adverse regimes; its sample PnL 730 is followed by permanent shutdown at 634.5s.
+See [`DEFENSIVE_RESULTS.md`](research/playground/DEFENSIVE_RESULTS.md) and
+[`DEFENSIVE_REVIEW.md`](research/playground/DEFENSIVE_REVIEW.md).
+Do not infer real-market readiness or immunity from exploitation from either file.
+
+Original frozen Playground candidate: **`strategies/playground_flow.py`**.
 Official-simulator PnL **21,434**, compared with **1,878** for the untouched
 example. Zero breach penalties; maximum absolute inventory **20**. Independent
 review found no blocking state/accounting defect; see
@@ -107,8 +117,11 @@ Equivalent official entry point after `uv sync`:
 uv run exchange-simulator --strategy strategies/playground_flow.py --backtest data/sample.csv --log-dir logs/playground/candidate --no-logs
 ```
 
-Submit **only `strategies/playground_flow.py`**, not the scripts, research folder,
-or `_prep/`. Full explorer logs were generated at
+The exact file for the original 21,434 Playground result is
+**`strategies/playground_flow.py`**. The defensive experiment is a different file;
+it is not a replacement with the same score. Any submission must contain only
+the chosen standalone strategy, not scripts, research or `_prep/`.
+Full explorer logs were generated at
 `logs/playground/candidate_full_logs`; omit `--no-logs` to regenerate them.
 
 ## Critical risks and next experiment

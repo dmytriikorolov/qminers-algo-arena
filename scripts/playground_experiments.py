@@ -22,6 +22,8 @@ def run(strategy_path, data_path, parameters, output, cutoff):
     match_count = 0
     first_fill_latency = None
     original_update = strategy.on_private_order_update
+    original_public = strategy.on_order_book_change
+    first_halt_us = None
     simulator = ExchangeSimulator(strategy, SimulationConfig(
         public_depth=20, max_position=100, max_potential_position=1000,
         position_breach_penalty_per_second=10_000, order_accept_delay_ms=5))
@@ -35,6 +37,14 @@ def run(strategy_path, data_path, parameters, output, cutoff):
         max_inventory = max(max_inventory, abs(simulator._inventory))
 
     strategy.on_private_order_update = observe
+
+    def observe_public(snapshot, trades):
+        nonlocal first_halt_us
+        original_public(snapshot, trades)
+        if hasattr(strategy, 'halted') and strategy.halted and first_halt_us is None:
+            first_halt_us = snapshot.timestamp_us
+
+    strategy.on_order_book_change = observe_public
     original_submit = simulator.submit_order
     sent = {}
 
@@ -90,6 +100,8 @@ def run(strategy_path, data_path, parameters, output, cutoff):
         'minimum_send_to_fill_us': first_fill_latency, 'submitted': simulator._user_order_seq,
         'seconds': time.perf_counter() - started,
     }
+    if hasattr(strategy, 'halted'):
+        record['risk_state'] = {'halted_at_end': strategy.halted, 'first_halt_us': first_halt_us}
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(json.dumps(record, indent=2) + '\n')
     return record
