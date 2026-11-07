@@ -1,0 +1,39 @@
+{
+  "strategy": "strategies/trend_follower.py",
+  "strategy_sha256": "193b6269b1e7a9616557935f8a8307a4d9d32dc84ae75522bf2e1a6e7788f434",
+  "data": "data/sample.csv",
+  "data_sha256": "33dd6764c54000244f1a2e0691e6efbac226684554843147f622e0431b35e8dc",
+  "parameters": {},
+  "result": {
+    "fills": 305,
+    "traded_volume": 305,
+    "inventory": -1,
+    "cash": 11916.0,
+    "mark_price": 10038.0,
+    "breach_penalty": 0.0,
+    "pnl": 1878.0,
+    "pnl_se": 102.36673979541602,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 1,
+    "abs_inventory_q95": 1,
+    "abs_inventory_q997": 1
+  },
+  "development_pnl": 1259.0,
+  "final_20m_pnl": 619.0,
+  "chronological_20m_pnl": [
+    644.0,
+    615.0,
+    619.0
+  ],
+  "max_abs_inventory": 1,
+  "max_abs_reserved_position_at_submit": 1,
+  "sampled_max_drawdown": 16.0,
+  "statuses": {
+    "accepted": 305,
+    "filled": 305
+  },
+  "match_count": 305,
+  "minimum_send_to_fill_us": 5000,
+  "submitted": 305,
+  "seconds": 0.20982274998095818
+}

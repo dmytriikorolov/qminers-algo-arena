@@ -1,0 +1,43 @@
+{
+  "strategy": "strategies/playground_quotes.py",
+  "strategy_sha256": "1de59224d9567fbf01e9102d61de91c36a985cc4ebcc718b42a0360efa2e308d",
+  "data": "logs/playground/development.csv",
+  "data_sha256": "b2c8fc9ab68fbb69e955ffbe62dd700dd2fdd361c52216df86dfd2a8076a570f",
+  "parameters": {
+    "SIGNAL_WEIGHT": 0
+  },
+  "result": {
+    "fills": 43,
+    "traded_volume": 86,
+    "inventory": 2,
+    "cash": -19902.0,
+    "mark_price": 9985.0,
+    "breach_penalty": 0.0,
+    "pnl": 68.0,
+    "pnl_se": 204.54859256290774,
+    "abs_inventory_q50": 2,
+    "abs_inventory_q68": 2,
+    "abs_inventory_q95": 2,
+    "abs_inventory_q997": 4
+  },
+  "development_pnl": 68.0,
+  "final_20m_pnl": 0.0,
+  "chronological_20m_pnl": [
+    -58.0,
+    126.0,
+    0.0
+  ],
+  "max_abs_inventory": 4,
+  "max_abs_reserved_position_at_submit": 6,
+  "sampled_max_drawdown": 240.0,
+  "statuses": {
+    "accepted": 8725,
+    "canceled": 8682,
+    "filled": 43,
+    "rejected": 42
+  },
+  "match_count": 43,
+  "minimum_send_to_fill_us": 8985,
+  "submitted": 8725,
+  "seconds": 0.3044512920023408
+}

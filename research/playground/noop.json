@@ -1,0 +1,36 @@
+{
+  "strategy": "strategies/template_strategy.py",
+  "strategy_sha256": "f6513d77cd9d83a6e5f8ab817ea196aa678b5ec6431f287872724da76ed9d2f3",
+  "data": "logs/playground/development.csv",
+  "data_sha256": "b2c8fc9ab68fbb69e955ffbe62dd700dd2fdd361c52216df86dfd2a8076a570f",
+  "parameters": {},
+  "result": {
+    "fills": 0,
+    "traded_volume": 0,
+    "inventory": 0,
+    "cash": 0.0,
+    "mark_price": 9994.0,
+    "breach_penalty": 0.0,
+    "pnl": 0.0,
+    "pnl_se": 0.0,
+    "abs_inventory_q50": 0,
+    "abs_inventory_q68": 0,
+    "abs_inventory_q95": 0,
+    "abs_inventory_q997": 0
+  },
+  "development_pnl": 0.0,
+  "final_20m_pnl": 0.0,
+  "chronological_20m_pnl": [
+    0.0,
+    0.0,
+    0.0
+  ],
+  "max_abs_inventory": 0,
+  "max_abs_reserved_position_at_submit": 0,
+  "sampled_max_drawdown": 0,
+  "statuses": {},
+  "match_count": 0,
+  "minimum_send_to_fill_us": null,
+  "submitted": 0,
+  "seconds": 0.1256147910025902
+}

@@ -1,0 +1,23 @@
+{
+  "python": "3.13.16",
+  "packages": {
+    "pydantic": "2.14.3",
+    "numpy": "2.5.4",
+    "pandas": "3.0.6",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "files_sha256": {
+    "README.md": "32fa6e9ed562bde0c443d65d22cf48b2212228f4d7635032ecbe06aa66fa74fe",
+    "pyproject.toml": "b033c20c7f6dd242dee77028c5c5e95bc55fec1e6f7dc5d4d027eac48ea01bbc",
+    "simulator/__init__.py": "9fc736ffaff472d4d7f30810b3e973cb6def0929b6635d7e917dca036b3ebcbc",
+    "simulator/main.py": "8bf3f82e9d5f72c47a2d1dcf86f88a68391fccbc2e3db3ceddad005a6c5d8a14",
+    "simulator/models.py": "d66d6155376fae92285dae5d749a5c0d58b94a8f1e5dc01a37da6d0ac6974f63",
+    "simulator/simulator.py": "c37b2262186f977df85df783b5422edf67d79d3741936c442084ca2e64e0d4c4",
+    "simulator/strategy.py": "464830f41c07153143485f5796cda61b974ee2dc9dd0637f4acee1f8e64083f5",
+    "strategies/trend_follower.py": "193b6269b1e7a9616557935f8a8307a4d9d32dc84ae75522bf2e1a6e7788f434",
+    "strategies/template_strategy.py": "f6513d77cd9d83a6e5f8ab817ea196aa678b5ec6431f287872724da76ed9d2f3",
+    "strategies/playground_flow.py": "abe1dbecfe7436182312811ffa8a0abe16061e1bf792942a57911f9a082d7cd0",
+    "strategies/playground_quotes.py": "1de59224d9567fbf01e9102d61de91c36a985cc4ebcc718b42a0360efa2e308d"
+  }
+}
