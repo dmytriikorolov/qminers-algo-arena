@@ -1,0 +1,10 @@
+{
+  "family": "market",
+  "parameters": {
+    "fee_per_unit": 0.01,
+    "position_limit": 10,
+    "regime": "mean_reverting",
+    "steps": 300
+  },
+  "seed": 23
+}

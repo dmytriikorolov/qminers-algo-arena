@@ -1,0 +1,8 @@
+{
+  "family": "ml",
+  "parameters": {
+    "rows": 240,
+    "task": "classification"
+  },
+  "seed": 7
+}

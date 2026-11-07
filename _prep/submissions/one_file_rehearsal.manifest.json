@@ -1,0 +1,43 @@
+{
+  "contract": {
+    "path": "configs/submission_contract.example.json",
+    "sha256": "1275d5b521b9eaf4b827973f2796f4e6375286b2047e17d3275b5701f71d25d5"
+  },
+  "environment": {
+    "dependencies": {
+      "numpy": "2.5.4",
+      "pypdf": "6.21.4",
+      "quant-arena-lab": "0.1.0",
+      "reportlab": "4.5.1",
+      "scipy": "1.18.1"
+    },
+    "machine": "arm64",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.12.6"
+  },
+  "note": "Local copy only. No code executed or submitted. Run the official evaluator and enforce its runtime restrictions separately.",
+  "official_verified": false,
+  "output": {
+    "path": "submissions/one_file_rehearsal.py",
+    "sha256": "397248c9dc4d65d75a43bb5fb07d36f347ab91874095fcf7fa44fe6658fc1d04"
+  },
+  "schema_version": 1,
+  "source": {
+    "path": "scenarios/one_file_example.py",
+    "sha256": "397248c9dc4d65d75a43bb5fb07d36f347ab91874095fcf7fa44fe6658fc1d04"
+  },
+  "static_check": {
+    "errors": [],
+    "imports": [],
+    "official_verified": false,
+    "remaining": [
+      "Run official samples and hidden-like edge cases in the official runner",
+      "Check runtime, memory, output, class-based interfaces and behavior manually",
+      "Static checks do not prove absence of network, secrets, filesystem access or side effects"
+    ],
+    "status": "static_checks_passed",
+    "submission_ready": false
+  },
+  "submission_ready": false,
+  "timestamp": "2026-11-06T22:10:08.411428+00:00"
+}

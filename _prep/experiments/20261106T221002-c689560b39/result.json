@@ -1,0 +1,122 @@
+{
+  "config": {
+    "family": "ml",
+    "parameters": {},
+    "seed": 7
+  },
+  "config_sha256": "f45065fc7ac8edc5690fd3fa4217196d6e0051c0f2fc4eb554f55e4b288dfbca",
+  "dataset": {
+    "fingerprint_kind": "generated_data_canonical_json",
+    "generator": "ml",
+    "kind": "synthetic",
+    "sha256": "b44f0ffeabfd64e228bcf06686aaef734ab724dddf5f577696ff4e0abf40898f"
+  },
+  "elapsed_seconds": 0.0021711659792345017,
+  "environment": {
+    "dependencies": {
+      "numpy": "2.5.4",
+      "pypdf": "6.21.4",
+      "quant-arena-lab": "0.1.0",
+      "reportlab": "4.5.1",
+      "scipy": "1.18.1"
+    },
+    "machine": "arm64",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.12.6"
+  },
+  "git": {
+    "branch": "main",
+    "dirty": true,
+    "revision": "646637196f157edf831aea394233076164801419"
+  },
+  "id": "20261106T221002-c689560b39",
+  "result": {
+    "calibration": [],
+    "comparison": [
+      {
+        "mae": 1.7805682543462256,
+        "mse": 5.510663022783912,
+        "rmse": 2.3474801432139767,
+        "strategy": "train_mean"
+      },
+      {
+        "mae": 0.26870180350558137,
+        "mse": 0.2077734434091989,
+        "rmse": 0.45582172327478965,
+        "strategy": "ridge"
+      }
+    ],
+    "data_origin": "seeded_synthetic_demo",
+    "data_quality": {
+      "missing_features": 15,
+      "train_target_mean": 0.07662262103242681
+    },
+    "dataset_fingerprint": "b44f0ffeabfd64e228bcf06686aaef734ab724dddf5f577696ff4e0abf40898f",
+    "dataset_fingerprint_format": "SHA-256 of actual generated rows as UTF-8 canonical JSON (sorted keys, compact separators)",
+    "family": "ml",
+    "metrics": {
+      "baseline": {
+        "mae": 1.7805682543462256,
+        "mse": 5.510663022783912,
+        "rmse": 2.3474801432139767
+      },
+      "improvement": 5.302889579374713,
+      "ridge": {
+        "mae": 0.26870180350558137,
+        "mse": 0.2077734434091989,
+        "rmse": 0.45582172327478965
+      }
+    },
+    "model": {
+      "constant": 0.07662262103242681,
+      "features": [
+        "x",
+        "nuisance"
+      ],
+      "imputation_means": [
+        0.04518185089093227,
+        0.09427397847103665
+      ],
+      "name": "ridge",
+      "scales": [
+        0.974399589465435,
+        1.0190443435864882
+      ],
+      "weights": [
+        0.07662262103242685,
+        2.3996206616103812,
+        -0.5922764302389782
+      ]
+    },
+    "seed": 7,
+    "selection": {
+      "penalty": 0.001,
+      "primary_metric": "mse",
+      "test_used_for_selection": false,
+      "validation_loss": 0.8176095098192785
+    },
+    "source": "seeded independent synthetic observations; no contest data",
+    "split": {
+      "gap": 0,
+      "label_horizon": 0,
+      "test_rows": 48,
+      "test_start": 192,
+      "train_end": 143,
+      "train_rows": 144,
+      "validation_end": 191,
+      "validation_rows": 48,
+      "validation_start": 144
+    },
+    "synthetic": true,
+    "task": "regression",
+    "warnings": [
+      "Chronology does not establish feature availability; inspect provenance.",
+      "Final holdout is evaluated once by this run; repeated tuning can overfit it."
+    ]
+  },
+  "schema_version": 1,
+  "seed": 7,
+  "source_sha256": "f9a8d24a2cc9e6683898ae67a9df49c04c31f045c8bfe0d9cfa0d35839cf803a",
+  "submission_ready": false,
+  "timestamp": "2026-11-06T22:10:02.560357+00:00"
+}

@@ -1,0 +1,170 @@
+<!doctype html><html lang="en"><meta charset="utf-8">
+<title>Arena experiment 20261106T221002-40ff7ef576</title>
+<style>body{font:16px system-ui;max-width:1000px;margin:40px auto;padding:16px}
+td,th{padding:6px 12px;border-bottom:1px solid #ddd;text-align:left}pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.label{color:#963a00;font-weight:bold}</style>
+<h1>Offline experiment: ml</h1>
+<p class="label">SYNTHETIC / EXAMPLE DATA</p><p>Run: 20261106T221002-40ff7ef576 | Seed: 7 | 2026-11-06T22:10:02.946391+00:00</p>
+<p>Question: how do the implemented baselines perform on this configured example?</p>
+<h2>Observed metrics</h2><table><tr><th>Metric (units in name/result)</th><th>Value</th></tr><tr><td>baseline.accuracy</td><td>0.39583333</td></tr><tr><td>baseline.brier</td><td>0.25477431</td></tr><tr><td>baseline.log_loss</td><td>0.70270157</td></tr><tr><td>improvement</td><td>0.2607017</td></tr><tr><td>logistic.accuracy</td><td>0.8125</td></tr><tr><td>logistic.brier</td><td>0.14608247</td></tr><tr><td>logistic.log_loss</td><td>0.44199988</td></tr></table>
+<h2>Interpretation and limitations</h2><p>These values describe this run only. A better synthetic score is not evidence of a competitive or profitable strategy.
+No official submission contract has been tested. Inspect assumptions, losses, sample size, and independent seeds before selecting a method.</p>
+<ul><li>Chronology does not establish feature availability; inspect provenance.</li><li>Final holdout is evaluated once by this run; repeated tuning can overfit it.</li></ul>
+<p>Next action: reproduce the official evaluator, then compare these methods on its metric and legal data.</p>
+<h2>Source result and provenance</h2><p>Source: experiments/20261106T221002-40ff7ef576/result.json</p>
+<pre>{
+  &quot;config&quot;: {
+    &quot;family&quot;: &quot;ml&quot;,
+    &quot;parameters&quot;: {
+      &quot;rows&quot;: 240,
+      &quot;task&quot;: &quot;classification&quot;
+    },
+    &quot;seed&quot;: 7
+  },
+  &quot;config_sha256&quot;: &quot;2eb72c705ec44354ca5e95178b4d62886044f1f74acece9fbaedbc257e36402e&quot;,
+  &quot;dataset&quot;: {
+    &quot;fingerprint_kind&quot;: &quot;generated_data_canonical_json&quot;,
+    &quot;generator&quot;: &quot;ml&quot;,
+    &quot;kind&quot;: &quot;synthetic&quot;,
+    &quot;sha256&quot;: &quot;6d61cc6985d10c32477f0a59bfbc4c70fdf2b09b0cac3a7f148b75258e2a8fdf&quot;
+  },
+  &quot;elapsed_seconds&quot;: 0.10816400000476278,
+  &quot;environment&quot;: {
+    &quot;dependencies&quot;: {
+      &quot;numpy&quot;: &quot;2.5.4&quot;,
+      &quot;pypdf&quot;: &quot;6.21.4&quot;,
+      &quot;quant-arena-lab&quot;: &quot;0.1.0&quot;,
+      &quot;reportlab&quot;: &quot;4.5.1&quot;,
+      &quot;scipy&quot;: &quot;1.18.1&quot;
+    },
+    &quot;machine&quot;: &quot;arm64&quot;,
+    &quot;platform&quot;: &quot;macOS-26.5.1-arm64-arm-64bit&quot;,
+    &quot;python&quot;: &quot;3.12.6&quot;
+  },
+  &quot;git&quot;: {
+    &quot;branch&quot;: &quot;main&quot;,
+    &quot;dirty&quot;: true,
+    &quot;revision&quot;: &quot;646637196f157edf831aea394233076164801419&quot;
+  },
+  &quot;id&quot;: &quot;20261106T221002-40ff7ef576&quot;,
+  &quot;result&quot;: {
+    &quot;calibration&quot;: [
+      {
+        &quot;count&quot;: 6,
+        &quot;lower&quot;: 0.0,
+        &quot;mean_probability&quot;: 0.1030282275686127,
+        &quot;observed_frequency&quot;: 0.0
+      },
+      {
+        &quot;count&quot;: 6,
+        &quot;lower&quot;: 0.2,
+        &quot;mean_probability&quot;: 0.29606684139632505,
+        &quot;observed_frequency&quot;: 0.5
+      },
+      {
+        &quot;count&quot;: 5,
+        &quot;lower&quot;: 0.4,
+        &quot;mean_probability&quot;: 0.45486839227084025,
+        &quot;observed_frequency&quot;: 0.2
+      },
+      {
+        &quot;count&quot;: 16,
+        &quot;lower&quot;: 0.6,
+        &quot;mean_probability&quot;: 0.6992594202241228,
+        &quot;observed_frequency&quot;: 0.75
+      },
+      {
+        &quot;count&quot;: 15,
+        &quot;lower&quot;: 0.8,
+        &quot;mean_probability&quot;: 0.893243629270153,
+        &quot;observed_frequency&quot;: 0.8666666666666667
+      }
+    ],
+    &quot;comparison&quot;: [
+      {
+        &quot;accuracy&quot;: 0.3958333333333333,
+        &quot;brier&quot;: 0.2547743055555555,
+        &quot;log_loss&quot;: 0.7027015747737003,
+        &quot;strategy&quot;: &quot;train_mean&quot;
+      },
+      {
+        &quot;accuracy&quot;: 0.8125,
+        &quot;brier&quot;: 0.1460824706426717,
+        &quot;log_loss&quot;: 0.4419998756097159,
+        &quot;strategy&quot;: &quot;logistic&quot;
+      }
+    ],
+    &quot;data_origin&quot;: &quot;seeded_synthetic_demo&quot;,
+    &quot;data_quality&quot;: {
+      &quot;missing_features&quot;: 15,
+      &quot;train_target_mean&quot;: 0.4791666666666667
+    },
+    &quot;dataset_fingerprint&quot;: &quot;6d61cc6985d10c32477f0a59bfbc4c70fdf2b09b0cac3a7f148b75258e2a8fdf&quot;,
+    &quot;dataset_fingerprint_format&quot;: &quot;SHA-256 of actual generated rows as UTF-8 canonical JSON (sorted keys, compact separators)&quot;,
+    &quot;family&quot;: &quot;ml&quot;,
+    &quot;metrics&quot;: {
+      &quot;baseline&quot;: {
+        &quot;accuracy&quot;: 0.3958333333333333,
+        &quot;brier&quot;: 0.2547743055555555,
+        &quot;log_loss&quot;: 0.7027015747737003
+      },
+      &quot;improvement&quot;: 0.26070169916398445,
+      &quot;logistic&quot;: {
+        &quot;accuracy&quot;: 0.8125,
+        &quot;brier&quot;: 0.1460824706426717,
+        &quot;log_loss&quot;: 0.4419998756097159
+      }
+    },
+    &quot;model&quot;: {
+      &quot;constant&quot;: 0.4791666666666667,
+      &quot;features&quot;: [
+        &quot;x&quot;,
+        &quot;nuisance&quot;
+      ],
+      &quot;imputation_means&quot;: [
+        -0.05096473908523391,
+        -0.037948669812572125
+      ],
+      &quot;name&quot;: &quot;logistic&quot;,
+      &quot;scales&quot;: [
+        1.016667898624281,
+        1.0296032430736424
+      ],
+      &quot;weights&quot;: [
+        -0.1077222732526383,
+        1.8863745238727148,
+        -0.3061516396817274
+      ]
+    },
+    &quot;seed&quot;: 7,
+    &quot;selection&quot;: {
+      &quot;penalty&quot;: 0.001,
+      &quot;primary_metric&quot;: &quot;log_loss&quot;,
+      &quot;test_used_for_selection&quot;: false,
+      &quot;validation_loss&quot;: 0.5103406768601711
+    },
+    &quot;source&quot;: &quot;seeded independent synthetic observations; no contest data&quot;,
+    &quot;split&quot;: {
+      &quot;gap&quot;: 0,
+      &quot;label_horizon&quot;: 0,
+      &quot;test_rows&quot;: 48,
+      &quot;test_start&quot;: 192,
+      &quot;train_end&quot;: 143,
+      &quot;train_rows&quot;: 144,
+      &quot;validation_end&quot;: 191,
+      &quot;validation_rows&quot;: 48,
+      &quot;validation_start&quot;: 144
+    },
+    &quot;synthetic&quot;: true,
+    &quot;task&quot;: &quot;classification&quot;,
+    &quot;warnings&quot;: [
+      &quot;Chronology does not establish feature availability; inspect provenance.&quot;,
+      &quot;Final holdout is evaluated once by this run; repeated tuning can overfit it.&quot;
+    ]
+  },
+  &quot;schema_version&quot;: 1,
+  &quot;seed&quot;: 7,
+  &quot;source_sha256&quot;: &quot;f9a8d24a2cc9e6683898ae67a9df49c04c31f045c8bfe0d9cfa0d35839cf803a&quot;,
+  &quot;submission_ready&quot;: false,
+  &quot;timestamp&quot;: &quot;2026-11-06T22:10:02.946391+00:00&quot;
+}</pre></html>

@@ -1,0 +1,156 @@
+{
+  "config": {
+    "family": "ml",
+    "parameters": {
+      "rows": 240,
+      "task": "classification"
+    },
+    "seed": 7
+  },
+  "config_sha256": "2eb72c705ec44354ca5e95178b4d62886044f1f74acece9fbaedbc257e36402e",
+  "dataset": {
+    "fingerprint_kind": "generated_data_canonical_json",
+    "generator": "ml",
+    "kind": "synthetic",
+    "sha256": "6d61cc6985d10c32477f0a59bfbc4c70fdf2b09b0cac3a7f148b75258e2a8fdf"
+  },
+  "elapsed_seconds": 0.10816400000476278,
+  "environment": {
+    "dependencies": {
+      "numpy": "2.5.4",
+      "pypdf": "6.21.4",
+      "quant-arena-lab": "0.1.0",
+      "reportlab": "4.5.1",
+      "scipy": "1.18.1"
+    },
+    "machine": "arm64",
+    "platform": "macOS-26.5.1-arm64-arm-64bit",
+    "python": "3.12.6"
+  },
+  "git": {
+    "branch": "main",
+    "dirty": true,
+    "revision": "646637196f157edf831aea394233076164801419"
+  },
+  "id": "20261106T221002-40ff7ef576",
+  "result": {
+    "calibration": [
+      {
+        "count": 6,
+        "lower": 0.0,
+        "mean_probability": 0.1030282275686127,
+        "observed_frequency": 0.0
+      },
+      {
+        "count": 6,
+        "lower": 0.2,
+        "mean_probability": 0.29606684139632505,
+        "observed_frequency": 0.5
+      },
+      {
+        "count": 5,
+        "lower": 0.4,
+        "mean_probability": 0.45486839227084025,
+        "observed_frequency": 0.2
+      },
+      {
+        "count": 16,
+        "lower": 0.6,
+        "mean_probability": 0.6992594202241228,
+        "observed_frequency": 0.75
+      },
+      {
+        "count": 15,
+        "lower": 0.8,
+        "mean_probability": 0.893243629270153,
+        "observed_frequency": 0.8666666666666667
+      }
+    ],
+    "comparison": [
+      {
+        "accuracy": 0.3958333333333333,
+        "brier": 0.2547743055555555,
+        "log_loss": 0.7027015747737003,
+        "strategy": "train_mean"
+      },
+      {
+        "accuracy": 0.8125,
+        "brier": 0.1460824706426717,
+        "log_loss": 0.4419998756097159,
+        "strategy": "logistic"
+      }
+    ],
+    "data_origin": "seeded_synthetic_demo",
+    "data_quality": {
+      "missing_features": 15,
+      "train_target_mean": 0.4791666666666667
+    },
+    "dataset_fingerprint": "6d61cc6985d10c32477f0a59bfbc4c70fdf2b09b0cac3a7f148b75258e2a8fdf",
+    "dataset_fingerprint_format": "SHA-256 of actual generated rows as UTF-8 canonical JSON (sorted keys, compact separators)",
+    "family": "ml",
+    "metrics": {
+      "baseline": {
+        "accuracy": 0.3958333333333333,
+        "brier": 0.2547743055555555,
+        "log_loss": 0.7027015747737003
+      },
+      "improvement": 0.26070169916398445,
+      "logistic": {
+        "accuracy": 0.8125,
+        "brier": 0.1460824706426717,
+        "log_loss": 0.4419998756097159
+      }
+    },
+    "model": {
+      "constant": 0.4791666666666667,
+      "features": [
+        "x",
+        "nuisance"
+      ],
+      "imputation_means": [
+        -0.05096473908523391,
+        -0.037948669812572125
+      ],
+      "name": "logistic",
+      "scales": [
+        1.016667898624281,
+        1.0296032430736424
+      ],
+      "weights": [
+        -0.1077222732526383,
+        1.8863745238727148,
+        -0.3061516396817274
+      ]
+    },
+    "seed": 7,
+    "selection": {
+      "penalty": 0.001,
+      "primary_metric": "log_loss",
+      "test_used_for_selection": false,
+      "validation_loss": 0.5103406768601711
+    },
+    "source": "seeded independent synthetic observations; no contest data",
+    "split": {
+      "gap": 0,
+      "label_horizon": 0,
+      "test_rows": 48,
+      "test_start": 192,
+      "train_end": 143,
+      "train_rows": 144,
+      "validation_end": 191,
+      "validation_rows": 48,
+      "validation_start": 144
+    },
+    "synthetic": true,
+    "task": "classification",
+    "warnings": [
+      "Chronology does not establish feature availability; inspect provenance.",
+      "Final holdout is evaluated once by this run; repeated tuning can overfit it."
+    ]
+  },
+  "schema_version": 1,
+  "seed": 7,
+  "source_sha256": "f9a8d24a2cc9e6683898ae67a9df49c04c31f045c8bfe0d9cfa0d35839cf803a",
+  "submission_ready": false,
+  "timestamp": "2026-11-06T22:10:02.946391+00:00"
+}
