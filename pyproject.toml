@@ -1,16 +1,14 @@
 [project]
 name = "qminers-algo-arena"
 version = "0.1.0"
-description = "Qminers trading hackathon starter: write a strategy, backtest it, explore the run"
+description = "Trading strategy research sandbox with an exchange simulator and backtest explorer"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 dependencies = [
     "pydantic>=2.8.0",
-    # Available to strategies in the evaluation sandbox; pinned so every run sees the same versions.
+    # Data handling and plotting dependencies; retained strategies use the standard library.
     "numpy==2.5.4",
     "pandas==3.0.6",
-    "scipy==1.18.1",
-    "scikit-learn==1.9.1",
     # The backtest explorer.
     "dash>=4.3.0",
     "plotly>=6.8.0",

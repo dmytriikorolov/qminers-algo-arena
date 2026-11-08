@@ -1,0 +1,21 @@
+{
+  "fills": 1296,
+  "traded_volume": 57296,
+  "inventory": -50,
+  "cash": 486856.0,
+  "mark_price": 9873.0,
+  "breach_penalty": 0.0,
+  "pnl": -6794.0,
+  "pnl_se": 10172.373012981703,
+  "abs_inventory_q50": 1,
+  "abs_inventory_q68": 50,
+  "abs_inventory_q95": 50,
+  "abs_inventory_q997": 50,
+  "first_half": -10131.0,
+  "second_half": 3337.0,
+  "max_drawdown": 17852.0,
+  "learned_states": 28,
+  "parameters": {
+    "horizon": 10
+  }
+}

@@ -1,0 +1,170 @@
+[
+  {
+    "source": "data/round1.csv",
+    "sha256": "362e8208be1eeec32ad190d097774e26448f0d5149575a8e1b1efd1db1735940",
+    "cache_version": 2,
+    "engine_sha256": {
+      "simulator.py": "c37b2262186f977df85df783b5422edf67d79d3741936c442084ca2e64e0d4c4",
+      "models.py": "d66d6155376fae92285dae5d749a5c0d58b94a8f1e5dc01a37da6d0ac6974f63"
+    },
+    "quantity_conservation_residual": 0,
+    "inserted_quantity": 170603531,
+    "canceled_quantity": 141709832,
+    "ioc_unfilled_quantity": 1991823,
+    "final_resting_quantity": 7890,
+    "duration_s": 11999.999025,
+    "events": 4411336,
+    "g_inserts": 2157657,
+    "f_inserts": 96088,
+    "cancels": 2157591,
+    "unknown_cancels": 285676,
+    "executed_qty": 13446993,
+    "matches": 375234,
+    "ties": 0,
+    "final_bid": 10029,
+    "final_ask": 10030,
+    "valid_book_fraction": 0.9998652484057181,
+    "mean_spread_time_weighted": 1.070640492074361,
+    "insert_size_quantiles": {
+      "G": {
+        "p50": 14.0,
+        "p90": 143.0,
+        "p99": 933.0,
+        "max": 124248.0
+      },
+      "IOC": {
+        "p50": 61.0,
+        "p90": 360.0,
+        "p99": 1543.2600000000093,
+        "max": 23224.0
+      }
+    },
+    "mid_start": 10000.0,
+    "mid_end": 10029.5,
+    "mid_min": 9990.5,
+    "mid_max": 10094.5,
+    "rms_return1": 0.9199698988943191,
+    "max_drawdown_ticks": 104.0,
+    "spread1_share_grid": 0.9302160851340427,
+    "spread_ge4_share_grid": 2.500020833506946e-05,
+    "l1_min_median": 390.0,
+    "jump_ge5_count": 0,
+    "jump_ge10_count": 0,
+    "lag1_return_corr": 0.006961064006105318,
+    "lag1_abs_return_corr": -0.017207271206880228,
+    "top1pct_variance_share": 0.10312476915121518,
+    "net_move_ticks": 29.5
+  },
+  {
+    "source": "data/round2_public.csv",
+    "sha256": "88ff641e962540c66fa1cc4a3547585d31838d0929340150690cabb4f3cfb9f4",
+    "cache_version": 2,
+    "engine_sha256": {
+      "simulator.py": "c37b2262186f977df85df783b5422edf67d79d3741936c442084ca2e64e0d4c4",
+      "models.py": "d66d6155376fae92285dae5d749a5c0d58b94a8f1e5dc01a37da6d0ac6974f63"
+    },
+    "quantity_conservation_residual": 0,
+    "inserted_quantity": 86063574,
+    "canceled_quantity": 70409270,
+    "ioc_unfilled_quantity": 1647554,
+    "final_resting_quantity": 6966,
+    "duration_s": 5999.996013,
+    "events": 2193064,
+    "g_inserts": 1069859,
+    "f_inserts": 53423,
+    "cancels": 1069782,
+    "unknown_cancels": 150476,
+    "executed_qty": 6999892,
+    "matches": 197588,
+    "ties": 0,
+    "final_bid": 9689,
+    "final_ask": 9690,
+    "valid_book_fraction": 0.9993135077104925,
+    "mean_spread_time_weighted": 1.2300159976161966,
+    "insert_size_quantiles": {
+      "G": {
+        "p50": 14.0,
+        "p90": 143.0,
+        "p99": 940.0,
+        "max": 72482.0
+      },
+      "IOC": {
+        "p50": 61.0,
+        "p90": 367.0,
+        "p99": 1543.0,
+        "max": 26005.0
+      }
+    },
+    "mid_start": 10000.0,
+    "mid_end": 9689.5,
+    "mid_min": 9455.0,
+    "mid_max": 10007.5,
+    "rms_return1": 3.7877745628461783,
+    "max_drawdown_ticks": 552.5,
+    "spread1_share_grid": 0.8395973266221104,
+    "spread_ge4_share_grid": 0.013616893614893582,
+    "l1_min_median": 300.0,
+    "jump_ge5_count": 404,
+    "jump_ge10_count": 108,
+    "lag1_return_corr": 0.03998198157723024,
+    "lag1_abs_return_corr": 0.2213199133062176,
+    "top1pct_variance_share": 0.6612521642974581,
+    "net_move_ticks": -310.5
+  },
+  {
+    "source": "data/round3_public.csv",
+    "sha256": "1021586b92a3d9dfdb70096e6b0af34d460813b139f1f51f56b73871cb5a2d15",
+    "cache_version": 2,
+    "engine_sha256": {
+      "simulator.py": "c37b2262186f977df85df783b5422edf67d79d3741936c442084ca2e64e0d4c4",
+      "models.py": "d66d6155376fae92285dae5d749a5c0d58b94a8f1e5dc01a37da6d0ac6974f63"
+    },
+    "quantity_conservation_residual": 0,
+    "inserted_quantity": 94749012,
+    "canceled_quantity": 78601771,
+    "ioc_unfilled_quantity": 1805816,
+    "final_resting_quantity": 12199,
+    "duration_s": 5999.994333,
+    "events": 2412805,
+    "g_inserts": 1178322,
+    "f_inserts": 56274,
+    "cancels": 1178209,
+    "unknown_cancels": 155141,
+    "executed_qty": 7164613,
+    "matches": 204124,
+    "ties": 0,
+    "final_bid": 9872,
+    "final_ask": 9873,
+    "valid_book_fraction": 0.9996724868573305,
+    "mean_spread_time_weighted": 1.2484726034820794,
+    "insert_size_quantiles": {
+      "G": {
+        "p50": 18.0,
+        "p90": 153.0,
+        "p99": 878.0,
+        "max": 111687.0
+      },
+      "IOC": {
+        "p50": 60.0,
+        "p90": 360.0,
+        "p99": 1528.0,
+        "max": 50114.0
+      }
+    },
+    "mid_start": 10000.0,
+    "mid_end": 9872.5,
+    "mid_min": 9766.0,
+    "mid_max": 10131.5,
+    "rms_return1": 4.477737538847061,
+    "max_drawdown_ticks": 365.5,
+    "spread1_share_grid": 0.8148469141152352,
+    "spread_ge4_share_grid": 0.01156685944765746,
+    "l1_min_median": 210.0,
+    "jump_ge5_count": 668,
+    "jump_ge10_count": 174,
+    "lag1_return_corr": 0.11152584702237879,
+    "lag1_abs_return_corr": 0.17519495650736483,
+    "top1pct_variance_share": 0.5859561243296542,
+    "net_move_ticks": -127.5
+  }
+]

@@ -1,8 +1,0 @@
-# Optional dependencies verified on Python 3.12.6, macOS ARM64, 2026-11-06.
-# Local environment snapshot; not a cross-platform or hashed supply-chain lock.
-charset-normalizer==3.5.2
-numpy==2.5.4
-pillow==13.0.0
-pypdf==6.21.4
-reportlab==4.5.1
-scipy==1.18.1

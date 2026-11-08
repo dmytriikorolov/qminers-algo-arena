@@ -1,16 +1,19 @@
+# Local Python environment and generated metadata
 .venv/
 __pycache__/
 *.py[cod]
 *.egg-info/
+.pytest_cache/
 .ruff_cache/
-# The rounds' market data, downloaded from the website
+.uv-cache/
+
+# Original downloaded datasets remain local
 data/*
 !data/.gitkeep
 !data/sample.csv.gz
-# Simulator output
-logs/*
-!logs/.gitkeep
 
-.agents/
-.codex/
+# Generated simulator output
+
+# Editor and operating-system files
 .idea/
+.DS_Store

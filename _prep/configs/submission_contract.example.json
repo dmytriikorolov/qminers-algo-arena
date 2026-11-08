@@ -1,7 +1,0 @@
-{
-  "official_verified": false,
-  "entrypoint": "solve",
-  "parameters": ["data"],
-  "allowed_imports": ["math", "collections", "heapq", "bisect", "itertools"],
-  "max_bytes": 100000
-}

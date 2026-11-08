@@ -1,1 +1,0 @@
-{"family": "market", "seed": 7, "parameters": {"steps": 300, "fee_per_unit": 0.01, "position_limit": 10, "regime": "mean_reverting"}}

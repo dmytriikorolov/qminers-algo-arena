@@ -1,7 +1,0 @@
-HACKATHON ONLY — FIRST CODEX SESSION
-
-1. Extract this ZIP and open its top-level project folder in Codex.
-2. Read START_CODEX_HACKATHON.md in full and execute it, including preparation/CODEX_MASTER_PROMPT.md.
-3. Build real working code, run tests, and write TONIGHT_STATUS.md and memory/handoff.md.
-4. Cover all four potential task families: trading/market data, ML, game theory/resource allocation, and coding/automation.
-5. Do not enable third-party ai-memory without a separate security review and my approval. Do not treat synthetic demos as official competition results.

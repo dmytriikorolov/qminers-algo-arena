@@ -1,0 +1,41 @@
+{
+  "source": "data/round1.csv",
+  "sha256": "362e8208be1eeec32ad190d097774e26448f0d5149575a8e1b1efd1db1735940",
+  "cache_version": 2,
+  "engine_sha256": {
+    "simulator.py": "c37b2262186f977df85df783b5422edf67d79d3741936c442084ca2e64e0d4c4",
+    "models.py": "d66d6155376fae92285dae5d749a5c0d58b94a8f1e5dc01a37da6d0ac6974f63"
+  },
+  "quantity_conservation_residual": 0,
+  "inserted_quantity": 170603531,
+  "canceled_quantity": 141709832,
+  "ioc_unfilled_quantity": 1991823,
+  "final_resting_quantity": 7890,
+  "duration_s": 11999.999025,
+  "events": 4411336,
+  "g_inserts": 2157657,
+  "f_inserts": 96088,
+  "cancels": 2157591,
+  "unknown_cancels": 285676,
+  "executed_qty": 13446993,
+  "matches": 375234,
+  "ties": 0,
+  "final_bid": 10029,
+  "final_ask": 10030,
+  "valid_book_fraction": 0.9998652484057181,
+  "mean_spread_time_weighted": 1.070640492074361,
+  "insert_size_quantiles": {
+    "G": {
+      "p50": 14.0,
+      "p90": 143.0,
+      "p99": 933.0,
+      "max": 124248.0
+    },
+    "IOC": {
+      "p50": 61.0,
+      "p90": 360.0,
+      "p99": 1543.2600000000093,
+      "max": 23224.0
+    }
+  }
+}

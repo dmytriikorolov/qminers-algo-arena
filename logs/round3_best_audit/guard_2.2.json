@@ -1,0 +1,18 @@
+{
+  "fills": 14857,
+  "traded_volume": 768290,
+  "inventory": 40,
+  "cash": -309040.0,
+  "mark_price": 9872.0,
+  "breach_penalty": 50.0,
+  "pnl": 85790.0,
+  "pnl_se": 7289.423714100763,
+  "abs_inventory_q50": 38,
+  "abs_inventory_q68": 60,
+  "abs_inventory_q95": 100,
+  "abs_inventory_q997": 100,
+  "fade_risk_cap": 2.2,
+  "first_half": 45304.0,
+  "second_half": 40486.0,
+  "max_drawdown": 2784.0
+}
